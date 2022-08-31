@@ -4,13 +4,13 @@
 
 ## Para Gitpod
 
-Como boa prática, o _chatbot_ usará o _token_ do Discord via variável de ambiente (módulo `python-dotenv`) a ser definida na [interface Web](https://gitpod.io/variables):
+Como boa prática, o _chatbot_ usa o _token_ do Discord da variável de ambiente (carregada pelo módulo `python-dotenv`) a ser definida na [interface Web](https://gitpod.io/variables):
 
 - Name: `DISCORD_TOKEN`
 - Value: `<token>`
 - Scope: `*/*` (o ideal é reduzir o escopo para a organização/usuário e repositório - no meu caso, `boidacarapreta/adcipt20222`)
 
-Além disso, o arquivo `.gitpod.yml` automatiza a instalação das dependências. Assim, o ambiente estará pronto para uso sempre que for criado um novo _pod_.
+Além disso, o arquivo `.gitpod.yml` automatiza a instalação das dependências. Assim, todo novo _pod_ criado estará com o ambiente pronto para uso.
 
 ## Para VSCode
 
@@ -30,7 +30,7 @@ pip install --upgrade pip
 pip install -r requirements.txt 
 ```
 
-Sobre o _token_, recomenda-se o arquivo `.env` (devidamente listado em `.gitignore`) para definir o seu valor:
+Sobre o _token_, foi seguida a documentação do módulo `python-dotenv`, onde o arquivo `.env` (devidamente listado em `.gitignore`) armazena o seu valor:
 
 ```
 DISCORD_TOKEN=<token>
