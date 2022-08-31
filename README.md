@@ -8,7 +8,7 @@ Como boa prática, o _chatbot_ usará o _token_ do Discord via variável de ambi
 
 - Name: `DISCORD_TOKEN`
 - Value: `<token>`
-- Scope: `*/*` (o ideal é reduzir o escopo para a organização/usuário e repositório - no meu caso, `boidacarapreta/adcipt2022`)
+- Scope: `*/*` (o ideal é reduzir o escopo para a organização/usuário e repositório - no meu caso, `boidacarapreta/adcipt20222`)
 
 Além disso, o arquivo `.gitpod.yml` automatiza a instalação das dependências. Assim, o ambiente estará pronto para uso sempre que for criado um novo _pod_.
 
