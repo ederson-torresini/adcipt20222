@@ -38,4 +38,4 @@ DISCORD_TOKEN=<token>
 
 ## Para todas as IDEs baseadas em VSCode (incluindo Gitpod)
 
-O arquivo `launch.json` tem uma entrada para o arquivo `chatbot.py` para execução e depuração.
+O arquivo `.vscode/launch.json` tem uma entrada para o arquivo `chatbot.py` para execução e depuração.
