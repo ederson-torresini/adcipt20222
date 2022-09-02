@@ -4,5 +4,9 @@ Chatbot para as disciplinas de Administração de Redes de Computadores (ADC) e 
 
 ## Equipes
 
+- [aifbot](https://github.com/aifbot): [discord-chabot](https://github.com/aifbot/discord-chatbot)
 - [Amongus Inc.](https://github.com/Amongus-Inc): [Reigns IFSC](https://github.com/Amongus-Inc/ReignsIFSC)
+- [Augusto e Willian](https://github.com/Augusto-e-Willian): [chatbot](https://github.com/Augusto-e-Willian/chatbot)
+- [Igor e Guilherme](https://github.com/igor-e-gui): [Cuidado onde pisa](https://github.com/igor-e-gui/cuidado-onde-pisa)
 - [Super Poderosas](https://github.com/super-poderosas): [colormatch](https://github.com/super-poderosas/colormatch)
+- [Os Vieiras](https://github.com/OsVieiras): [Chatbot Bina](https://github.com/OsVieiras/Chatbot-Bina)
