@@ -4,9 +4,11 @@ Chatbot para as disciplinas de Administração de Redes de Computadores (ADC) e 
 
 ## Equipes
 
+- [AK e MC](https://github.com/AK-MC): [Kayla's Adventure](https://github.com/AK-MC/Kayla-s-adventure)
 - [aifbot](https://github.com/aifbot): [discord-chabot](https://github.com/aifbot/discord-chatbot)
 - [Amongus Inc.](https://github.com/Amongus-Inc): [Reigns IFSC](https://github.com/Amongus-Inc/ReignsIFSC)
 - [Augusto e Willian](https://github.com/Augusto-e-Willian): [chatbot](https://github.com/Augusto-e-Willian/chatbot)
+- [Higor com H](https://github.com/higor-com-h): [Jogo sem nome](https://github.com/higor-com-h/jogosemnome)
 - [Igor e Guilherme](https://github.com/igor-e-gui): [Cuidado onde pisa](https://github.com/igor-e-gui/cuidado-onde-pisa)
 - [Super Poderosas](https://github.com/super-poderosas): [colormatch](https://github.com/super-poderosas/colormatch)
 - [Os Vieiras](https://github.com/OsVieiras): [Chatbot Bina](https://github.com/OsVieiras/Chatbot-Bina)
