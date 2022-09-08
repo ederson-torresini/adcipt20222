@@ -2,6 +2,16 @@
 
 Área de experimentações e testes. Nada mais (por enquanto).
 
+## Sobre o jogo
+
+(Ainda é uma ideia bastante crua...)
+
+Jogos baseados em texto sofrem, no meu entendimento particular, de um problema de ritmo: após o conhecimento das regras do jogo, é possível que o jogo rapidamente fique repetitivo e mecânico. [Na primeira vez em que pensei em um jogo de escapatória de um labirinto](https://github.com/boidacarapreta/arc20211) isso ficou claro: a repetição de comandos para atingir um objetivo. Por que não usar comandos mais complexos (`caminhar até encontrar uma porta` ao invés de `andar para frente`) para tornar a interação mais fluida - ou natural. Aliás, é pensando dessa forma que percebo como [os clássicos](https://en.wikipedia.org/wiki/Colossal_Cave_Adventure) já sabiam disso há 40, 50 anos (e por isso ressoam até hoje).
+
+(Bom, vamos lá...)
+
+O jogo é basicamente um *roguelike*: escapar de um labirinto, ou masmorra, de dimensões de 10x10x10 blocos. Claro, tudo gerado proceduralmente: portas, escadas, objetos dispostos (baús, armas) e, claro, inimigos. Alguma inspiração do filme [Cubo](https://en.wikipedia.org/wiki/Cube_(1997_film)), porém com o labirinto fixo por toda a partida. Outra inspiração será a _cena_ da praia de [Neuromancer](https://en.wikipedia.org/wiki/Neuromancer), o que também lembra várias cenas de experimentos de [Matrix](https://en.wikipedia.org/wiki/The_Matrix) - como aquela de saltar sobre os prédios. Enfim, é ver até onde vai a toca do coelho...
+
 ## Para Gitpod
 
 Como boa prática, o _chatbot_ usa o _token_ do Discord da variável de ambiente (carregada pelo módulo `python-dotenv`) a ser definida na [interface Web](https://gitpod.io/variables):
