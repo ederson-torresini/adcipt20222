@@ -1,18 +1,53 @@
-# Área de testes
+# ADC/IPT 2022.2
 
-Área de experimentações e testes. Nada mais (por enquanto).
+Para este semestre de 2022.2, nas disciplinas de Administração de Redes de Computadores (ADC) e Telefonia IP (IPT), será adotado um único projeto prático, integrado. Por decisão da turma, será desenvolvido um _chatbot_ com suporte a texto e áudio para Discord.
 
-## Sobre o jogo
+Para auxiliar na metodologia de ensino, baseada em projeto, será criado um projeto modelo, de minha livre escolha. Pensei o seguinte: se há [experimentos com jogos em semestres anteriores](https://boidacarapreta.gitbook.io/projetos/integrado-ao-ensino-medio-em-telecomunicacoes/aplicacao-web-com-javascript), por que não aproveitar a história desenvolvida até então?
 
-(Ainda é uma ideia bastante crua...)
+Durante a pandemia, em 2020.2, eu pensei em criar dois jogos, para as disciplinas de ADC (à época ARC) e Cabeamento Estruturado (CAB). O primeiro foi feito em Javascript, com Phaser, enquanto que o segundo foi com Twine. Embora com propostas bastante distintas, [ambos deveriam terminar juntos](https://youtu.be/AdRE60RLdYk). Infelizmente, assim como em todos os outros casos, os jogos não foram terminados - eles cumpriam seu papel mais rápido do que eu gostaria...
 
-Jogos baseados em texto sofrem, no meu entendimento particular, de um problema de ritmo: após o conhecimento das regras do jogo, é possível que o jogo rapidamente fique repetitivo e mecânico. [Na primeira vez em que pensei em um jogo de escapatória de um labirinto](https://github.com/boidacarapreta/arc20211) isso ficou claro: a repetição de comandos para atingir um objetivo. Por que não usar comandos mais complexos (`caminhar até encontrar uma porta` ao invés de `andar para frente`) para tornar a interação mais fluida - ou natural. Aliás, é pensando dessa forma que percebo como [os clássicos](https://en.wikipedia.org/wiki/Colossal_Cave_Adventure) já sabiam disso há 40, 50 anos (e por isso ressoam até hoje).
+Vou aproveitar, assim, essas histórias inacabadas para este _chatbot_...
 
-(Bom, vamos lá...)
+## Premissa do jogo
 
-O jogo é basicamente um *roguelike*: escapar de um labirinto, ou masmorra, de dimensões de 10x10x10 blocos. Claro, tudo gerado proceduralmente: portas, escadas, objetos dispostos (baús, armas) e, claro, inimigos. Alguma inspiração do filme [Cubo](https://en.wikipedia.org/wiki/Cube_(1997_film)), porém com o labirinto fixo por toda a partida. Outra inspiração será a _cena_ da praia de [Neuromancer](https://en.wikipedia.org/wiki/Neuromancer), o que também lembra várias cenas de experimentos de [Matrix](https://en.wikipedia.org/wiki/The_Matrix) - como aquela de saltar sobre os prédios. Enfim, é ver até onde vai a toca do coelho...
+Dois irmãos foram separados do pai no começo da Grande Pandemia, e querem se reencontrar. O filho, mais velho, está tentando fugir da sua ARCa (assim chamados os prédios usados para as bolhas sociais), enquanto a filha, presa em outra ARCa, está tentando encontrá-los através dos sistemas ligados a Internet.
 
-## Para Gitpod
+## O jogo ideial
+
+O cenário é pós-apocalíptico. A pandemia do Covid-19, rapidamente, torna-se a Grande Pandemia. Incontáveis mutações ocorrem em todo o planeta. De uma forma ainda não totalmente entendida, o DNA parece ser a semente aleatória das mutações. Assim, as famílias são isoladas entre si. Grande prédios são construídos, as ARCas, para abrigar essas bolhas sociais, e máquinas assumem papéis essenciais na vida, agora transformada. A Grande Máquina emerge como a nova ordem mundial.
+
+Porém, uma família, na tentativa de fugir do controle, é fragmentada. O pai, descoberto mexendo nos sistemas da Grande Máquina, [teve sua consciência assimilada por ela](https://boidacarapreta.github.io/arc20201/). O filho mais velho se sustenta com alguns bicos na sua ARCa, e [é convidado por um estranho a invadir os sistemas da Grande Máquina](https://boidacarapreta.github.io/integrado20212/cliente/). A filha, por fim, com a ajuda de uma amiga próxima, [vasculha os sistemas da Grande Máquina em busca de sinais dos parentes próximos](https://boidacarapreta.github.io/cab20202/).
+
+O formato é uma homenagem aos clássicos como Zelda:
+
+- [Mapa em 2D](https://boidacarapreta.github.io/adcipt20221/);
+- Construções para entrar e interagir com personagens, como comprar ou mesmo trocar itens;
+- Diálogos com as missões (principal e secundárias).
+
+Ao entrar em uma partida, o jogo escolherá um dos dois personagens aptos a jogar: filho e filha. Cada um deve tomar decisões para chegar ao seu destino. O canal de áudio é imprescindível para este jogo: como cada jogador pode jogar com apenas um personagem, será necessário pelo menos 2 jogadores com papéis diferentes para desbloquear a cena final de reencontro dos filhos. Ou seja, vários jogadores podem assumir o papel de filho ou filha, mas somente um de cada conseguirá chegar na última cena, e a cooperação entre filho e filha será essencial nos momentos decisivos. Logo, o canal de áudio terá duas funções: som ambiente do jogo e permitir que os jogadores conversem entre si.
+
+Em relação a programação, o _chatbot_ usará uma máquina de estado para cada jogador, que deverá conter:
+
+- Personagem sorteado;
+- Inventário (lista de objetos);
+- Pergunta;
+- Listas de respostas possíveis. Para cada resposta:
+  - Objetos necessários;
+  - Próximo estado.
+
+Dessa forma, a programação do _chatbot_ será feita de forma independente do jogo em si. Enquanto que aquele cuida da interação do usuário (texto e voz), a máquina de estado, a ser armazenada em banco de dados a parte, define a mecânica do jogo.
+
+Em essência, ambos, filho e filha, devem se encontrar para encontrar o pai, que está preso dentro da Grande Máquina.
+
+## Referências
+
+Eu sempre escolho uma música para ambientação quando começo a me concentrar no jogo. Enquanto que no semestre passado eu escutei [The Pretender, do Foo Fighters](https://open.spotify.com/track/7x8dCjCr0x6x2lXKujYD34?si=14cdb7ba4a304513), este semestre o ponto de partida vem de [You're Always in Time, do Tangerine Dream](https://open.spotify.com/track/5EexQPDX4zS2jVq7lloRc3?si=96ac0da218fb4b1c).
+
+Para a situação do pai, nada mais óbvio que [Neuromancer](https://editoraaleph.com.br/produto/neuromancer/). Para os filhos, [Incal](https://pipocaenanquim.com.br/produto/incal-volume-1-da-serie-todo-incal/) é sem dúvida a maior influência, principalmente essa mistura entre ciência e religião.
+
+## Como rodar o jogo
+
+### No Gitpod
 
 Como boa prática, o _chatbot_ usa o _token_ do Discord da variável de ambiente (carregada pelo módulo `python-dotenv`) a ser definida na [interface Web](https://gitpod.io/variables):
 
@@ -22,7 +57,7 @@ Como boa prática, o _chatbot_ usa o _token_ do Discord da variável de ambiente
 
 Além disso, o arquivo `.gitpod.yml` automatiza a instalação das dependências. Assim, todo novo _pod_ criado estará com o ambiente pronto para uso.
 
-## Para VSCode
+### No VSCode
 
 Recomenda-se o uso de ambiente virtual:
 
@@ -46,6 +81,6 @@ Sobre o _token_, foi seguida a documentação do módulo `python-dotenv`, onde o
 DISCORD_TOKEN=<token>
 ```
 
-## Para todas as IDEs baseadas em VSCode (incluindo Gitpod)
+### Em todas as IDEs baseadas em VSCode (incluindo Gitpod)
 
 O arquivo `.vscode/launch.json` tem uma entrada para o arquivo `chatbot.py` para execução e depuração.
