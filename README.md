@@ -2,14 +2,18 @@
 
 Chatbot para as disciplinas de Administração de Redes de Computadores (ADC) e Telefonia IP (IPT) do Curso Técnico Integrado ao Ensino Médio em Telecomunicações do Instituto Federal de Santa Catarina (IFSC) câmpus São José.
 
+Para acompanhamento do projeto: [kanban](https://github.com/users/boidacarapreta/projects/2/views/1) e [_milestones_](https://github.com/users/boidacarapreta/projects/2/views/2).
+
 ## Equipes
 
-- [AK e MC](https://github.com/AK-MC): [Kayla's Adventure](https://github.com/AK-MC/Kayla-s-adventure)
-- [aifbot](https://github.com/aifbot): [discord-chabot](https://github.com/aifbot/discord-chatbot)
-- [Amongus Inc.](https://github.com/Amongus-Inc): [Reigns IFSC](https://github.com/Amongus-Inc/ReignsIFSC)
-- [Augusto e Willian](https://github.com/Augusto-e-Willian): [chatbot](https://github.com/Augusto-e-Willian/chatbot)
-- [Enzo e Davi](https://github.com/enzo-davi): [my game](https://github.com/enzo-davi/my-game)
-- [Higor com H](https://github.com/higor-com-h): [Jogo sem nome](https://github.com/higor-com-h/jogosemnome)
-- [Igor e Guilherme](https://github.com/igor-e-gui): [Cuidado onde pisa](https://github.com/igor-e-gui/cuidado-onde-pisa)
-- [Super Poderosas](https://github.com/super-poderosas): [colormatch](https://github.com/super-poderosas/colormatch)
-- [Os Vieiras](https://github.com/OsVieiras): [Chatbot Bina](https://github.com/OsVieiras/Chatbot-Bina)
+| Equipe                                                    | Projeto                                                            | Repositório                                                          |
+| --------------------------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| [AK e MC](https://github.com/AK-MC)                       | [🔗](https://github.com/orgs/AK-MC/projects/1/views/1)             | [Kayla's Adventure](https://github.com/AK-MC/Kayla-s-adventure)      |
+| [aifbot](https://github.com/aifbot)                       | [🔗](https://github.com/orgs/aifbot/projects/1)                    | [discord-chabot](https://github.com/aifbot/discord-chatbot)          |
+| [Amongus Inc.](https://github.com/Amongus-Inc)            | [🔗](https://github.com/orgs/Amongus-Inc/projects/2/views/1)       | [Reigns IFSC](https://github.com/Amongus-Inc/ReignsIFSC)             |
+| [Augusto e Willian](https://github.com/Augusto-e-Willian) | [🔗](https://github.com/orgs/Augusto-e-Willian/projects/1/views/1) | [chatbot](https://github.com/Augusto-e-Willian/chatbot)              |
+| [Enzo e Davi](https://github.com/enzo-davi)               | [🔗](https://github.com/orgs/enzo-davi/projects/1/views/1)         | [my game](https://github.com/enzo-davi/my-game)                      |
+| [Higor com H](https://github.com/higor-com-h)             | [🔗](https://github.com/orgs/higor-com-h/projects/1)               | [Jogo sem nome](https://github.com/higor-com-h/jogosemnome)          |
+| [Igor e Guilherme](https://github.com/igor-e-gui)         | [🔗](https://github.com/orgs/igor-e-gui/projects/1)                | [Cuidado onde pisa](https://github.com/igor-e-gui/cuidado-onde-pisa) |
+| [Super Poderosas](https://github.com/super-poderosas)     | [🔗](https://github.com/orgs/super-poderosas/projects/2)           | [colormatch](https://github.com/super-poderosas/colormatch)          |
+| [Os Vieiras](https://github.com/OsVieiras)                | [🔗](https://github.com/orgs/OsVieiras/projects/2)                 | [Chatbot Bina](https://github.com/OsVieiras/Chatbot-Bina)            |
