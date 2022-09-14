@@ -6,14 +6,15 @@ Para acompanhamento do projeto: [kanban](https://github.com/users/boidacarapreta
 
 ## Equipes
 
-| Equipe                                                    | Projeto                                                            | Repositório                                                          |
-| --------------------------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------- |
-| [AK e MC](https://github.com/AK-MC)                       | [🔗](https://github.com/orgs/AK-MC/projects/1/views/1)             | [Kayla's Adventure](https://github.com/AK-MC/Kayla-s-adventure)      |
-| [aifbot](https://github.com/aifbot)                       | [🔗](https://github.com/orgs/aifbot/projects/1)                    | [discord-chabot](https://github.com/aifbot/discord-chatbot)          |
-| [Amongus Inc.](https://github.com/Amongus-Inc)            | [🔗](https://github.com/orgs/Amongus-Inc/projects/2/views/1)       | [Reigns IFSC](https://github.com/Amongus-Inc/ReignsIFSC)             |
-| [Augusto e Willian](https://github.com/Augusto-e-Willian) | [🔗](https://github.com/orgs/Augusto-e-Willian/projects/1/views/1) | [chatbot](https://github.com/Augusto-e-Willian/chatbot)              |
-| [Enzo e Davi](https://github.com/enzo-davi)               | [🔗](https://github.com/orgs/enzo-davi/projects/1/views/1)         | [my game](https://github.com/enzo-davi/my-game)                      |
-| [Higor com H](https://github.com/higor-com-h)             | [🔗](https://github.com/orgs/higor-com-h/projects/1)               | [Jogo sem nome](https://github.com/higor-com-h/jogosemnome)          |
-| [Igor e Guilherme](https://github.com/igor-e-gui)         | [🔗](https://github.com/orgs/igor-e-gui/projects/1)                | [Cuidado onde pisa](https://github.com/igor-e-gui/cuidado-onde-pisa) |
-| [Super Poderosas](https://github.com/super-poderosas)     | [🔗](https://github.com/orgs/super-poderosas/projects/2)           | [colormatch](https://github.com/super-poderosas/colormatch)          |
-| [Os Vieiras](https://github.com/OsVieiras)                | [🔗](https://github.com/orgs/OsVieiras/projects/2)                 | [Chatbot Bina](https://github.com/OsVieiras/Chatbot-Bina)            |
+| Equipe                                                    | Projeto                                                            | Repositório                                                             |
+| --------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| [AK e MC](https://github.com/AK-MC)                       | [🔗](https://github.com/orgs/AK-MC/projects/1/views/1)             | [Kayla's Adventure](https://github.com/AK-MC/Kayla-s-adventure)         |
+| [aifbot](https://github.com/aifbot)                       | [🔗](https://github.com/orgs/aifbot/projects/1)                    | [discord-chabot](https://github.com/aifbot/discord-chatbot)             |
+| [Amongus Inc.](https://github.com/Amongus-Inc)            | [🔗](https://github.com/orgs/Amongus-Inc/projects/2/views/1)       | [Reigns IFSC](https://github.com/Amongus-Inc/ReignsIFSC)                |
+| [Augusto e Willian](https://github.com/Augusto-e-Willian) | [🔗](https://github.com/orgs/Augusto-e-Willian/projects/1/views/1) | [chatbot](https://github.com/Augusto-e-Willian/chatbot)                 |
+| [Enzo e Davi](https://github.com/enzo-davi)               | [🔗](https://github.com/orgs/enzo-davi/projects/1/views/1)         | [my game](https://github.com/enzo-davi/my-game)                         |
+| [Higor com H](https://github.com/higor-com-h)             | [🔗](https://github.com/orgs/higor-com-h/projects/1)               | [Jogo sem nome](https://github.com/higor-com-h/jogosemnome)             |
+| [Igor e Guilherme](https://github.com/igor-e-gui)         | [🔗](https://github.com/orgs/igor-e-gui/projects/1)                | [Cuidado onde pisa](https://github.com/igor-e-gui/cuidado-onde-pisa)    |
+| [Re-Red](https://github.com/RE-RED)                       | [🔗](https://github.com/orgs/RE-RED/projects/4)                    | [clooli](https://github.com/RE-RED/clooli)                              |
+| [Super Poderosas](https://github.com/super-poderosas)     | [🔗](https://github.com/orgs/super-poderosas/projects/2)           | [Caixa de memórias](https://github.com/super-poderosas/caixadememorias) |
+| [Os Vieiras](https://github.com/OsVieiras)                | [🔗](https://github.com/orgs/OsVieiras/projects/2)                 | [Chatbot Bina](https://github.com/OsVieiras/Chatbot-Bina)               |
