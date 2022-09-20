@@ -50,7 +50,7 @@ async def on_ready():
 @bot.event
 async def on_message(msg):
     # Verificar se a mensagem não tem o próprio bot como autor.
-    if msg.author.id == msg.channel.me.id:
+    if msg.author.id == bot.application_id:
         return
 
     # Verificar se o jogador ainda não começou a partida,
