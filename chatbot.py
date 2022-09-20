@@ -14,20 +14,20 @@ estados = {
     0: {
         'frases': ['Digite "iniciar" para começar o jogo.'],
         'proximos_estados': {
-            1: 'iniciar'
+            'iniciar': 1
         }
     },
     1: {
         'frases': ['Olá!', 'Tudo bem, como vai?'],
         'proximos_estados': {
-            2: 'sim',
-            3: 'não'
+            'sim': 2,
+            'não': 3
         }
     },
     2: {
         'frases': ['Era uma vez...', 'E lá de volta outra vez...'],
         'proximos_estados': {
-            3: 'não'
+            'não': 3
         }
     },
     3: {
@@ -65,44 +65,41 @@ async def on_message(msg):
     #    estados[estados_dos_jogadores[msg.author.id]]
     # 3) Filtrar desse estado apenas a lista de próximos estados:
     #    estados[estados_dos_jogadores[msg.author.id]]['proximos_estados']
-    # 4) Separar dessa lista as mensagens levam a próximos estados e seus números:
-    for key, value in estados[estados_dos_jogadores[msg.author.id]]['proximos_estados'].items():
+    # 4) Filtrar dessa lista as chaves (frases) quem levam a próximos estados:
+    #    estados[estados_dos_jogadores[msg.author.id]]['proximos_estados'].keys()
+    # 5) Verificar se a frase do usuário está na lista de chaves (frases) do estado:
+    if msg.content in estados[estados_dos_jogadores[msg.author.id]]['proximos_estados'].keys():
         #
-        # # 5) Verificar se a mensagem enviada leva a um próximo estado:
-        if msg.content == value:
-            #
-            # # 6) Avançar para o próximo estado:
-            estados_dos_jogadores[msg.author.id] = key
-            #
-            # 7) Enviar para o jogador a mensagem do próximo estado
-            #
-            # Em ordem de operação:
-            # 7.0) Obter o ID do jogador:
-            #    msg.author.id
-            # 7.1) Obter o estado atual do jogador:
-            #    estados_dos_jogadores[msg.author.id]
-            # 7.2) Obter a definição completa desse estado:
-            #    estados[estados_dos_jogadores[msg.author.id]]
-            # 7.3) Filtrar desse estado apenas a lista de frases:
-            #    estados[estados_dos_jogadores[msg.author.id]]['frases']
-            # 7.4) Sortear uma frase dessa lista:
-            #   choice(estados[estados_dos_jogadores[msg.author.id]]['frases'])
-            await msg.channel.send(choice(estados[estados_dos_jogadores[msg.author.id]]['frases']))
-            #
-            # 8) Encerrar a resposta:
-            return
-
-    # Caso contrário, avisar que a mensagem não avança no jogo.
-    #
-    # Se o jogador está no primeiro estado:
-    if estados_dos_jogadores[msg.author.id] == 0:
+        # 6) Atualizar o estado do jogador, fazendo-o avançar no jogo:
+        estados_dos_jogadores[msg.author.id] = estados[estados_dos_jogadores[msg.author.id]]['proximos_estados'][msg.content]
         #
-        # Ajudar com uma dica:
+        # 7) Enviar para o jogador a mensagem do estado (já atualizado)
+        #
+        # Em ordem de operação:
+        # 7.0) Obter o ID do jogador:
+        #    msg.author.id
+        # 7.1) Obter o estado atual do jogador:
+        #    estados_dos_jogadores[msg.author.id]
+        # 7.2) Obter a definição completa desse estado:
+        #    estados[estados_dos_jogadores[msg.author.id]]
+        # 7.3) Filtrar desse estado apenas a lista de frases:
+        #    estados[estados_dos_jogadores[msg.author.id]]['frases']
+        # 7.4) Sortear uma frase dessa lista:
+        #   choice(estados[estados_dos_jogadores[msg.author.id]]['frases'])
         await msg.channel.send(choice(estados[estados_dos_jogadores[msg.author.id]]['frases']))
+    #
+    # Caso contrário, avisar que a mensagem não avança no jogo
     else:
         #
-        # Nos estados seguintes, a resposta padrão de HAL:
-        await msg.channel.send('I\'m sorry Dave, I\'m afraid I can\'t do that.')
+        # Se o jogador está no primeiro estado...
+        if estados_dos_jogadores[msg.author.id] == 0:
+            #
+            # ...ajudar com uma dica:
+            await msg.channel.send(choice(estados[estados_dos_jogadores[msg.author.id]]['frases']))
+        else:
+            #
+            # Nos estados seguintes, a resposta padrão de HAL:
+            await msg.channel.send('I\'m sorry Dave, I\'m afraid I can\'t do that.')
 
 
 bot.run(getenv('DISCORD_TOKEN'))
