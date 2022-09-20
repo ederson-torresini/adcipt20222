@@ -102,7 +102,7 @@ async def on_message(msg):
     else:
         #
         # Nos estados seguintes, a resposta padrão de HAL:
-        await msg.channel.send('Sorry, Dave. I\'m afraid I can\'t do that.')
+        await msg.channel.send('I\'m sorry Dave, I\'m afraid I can\'t do that.')
 
 
 bot.run(getenv('DISCORD_TOKEN'))
