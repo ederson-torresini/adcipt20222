@@ -37,7 +37,7 @@ estados = {
 }
 
 # Dicionário com os estados correntes de cada jogador.
-estados_dos_jogadores = {}
+partidas = {}
 
 
 @bot.event
@@ -53,25 +53,25 @@ async def on_message(msg):
 
     # Verificar se o jogador ainda não começou a partida,
     # o que significa que precisa colocá-lo no estado zero (0).
-    if msg.author.id not in estados_dos_jogadores:
-        estados_dos_jogadores[msg.author.id] = 0
+    if msg.author.id not in partidas:
+        partidas[msg.author.id] = 0
 
     # Em ordem de operação:
     # 0) Obter o ID do jogador:
     #    msg.author.id
     # 1) Obter o estado atual do jogador:
-    #    estados_dos_jogadores[msg.author.id]
+    #    partidas[msg.author.id]
     # 2) Obter a definição completa desse estado:
-    #    estados[estados_dos_jogadores[msg.author.id]]
+    #    estados[partidas[msg.author.id]]
     # 3) Filtrar desse estado apenas a lista de próximos estados:
-    #    estados[estados_dos_jogadores[msg.author.id]]['proximos_estados']
+    #    estados[partidas[msg.author.id]]['proximos_estados']
     # 4) Filtrar dessa lista as chaves (frases) quem levam a próximos estados:
-    #    estados[estados_dos_jogadores[msg.author.id]]['proximos_estados'].keys()
+    #    estados[partidas[msg.author.id]]['proximos_estados'].keys()
     # 5) Verificar se a frase do usuário está na lista de chaves (frases) do estado:
-    if msg.content in estados[estados_dos_jogadores[msg.author.id]]['proximos_estados'].keys():
+    if msg.content in estados[partidas[msg.author.id]]['proximos_estados'].keys():
         #
         # 6) Atualizar o estado do jogador, fazendo-o avançar no jogo:
-        estados_dos_jogadores[msg.author.id] = estados[estados_dos_jogadores[msg.author.id]]['proximos_estados'][msg.content]
+        partidas[msg.author.id] = estados[partidas[msg.author.id]]['proximos_estados'][msg.content]
         #
         # 7) Enviar para o jogador a mensagem do estado (já atualizado)
         #
@@ -79,23 +79,23 @@ async def on_message(msg):
         # 7.0) Obter o ID do jogador:
         #    msg.author.id
         # 7.1) Obter o estado atual do jogador:
-        #    estados_dos_jogadores[msg.author.id]
+        #    partidas[msg.author.id]
         # 7.2) Obter a definição completa desse estado:
-        #    estados[estados_dos_jogadores[msg.author.id]]
+        #    estados[partidas[msg.author.id]]
         # 7.3) Filtrar desse estado apenas a lista de frases:
-        #    estados[estados_dos_jogadores[msg.author.id]]['frases']
+        #    estados[partidas[msg.author.id]]['frases']
         # 7.4) Sortear uma frase dessa lista:
-        #   choice(estados[estados_dos_jogadores[msg.author.id]]['frases'])
-        await msg.channel.send(choice(estados[estados_dos_jogadores[msg.author.id]]['frases']))
+        #   choice(estados[partidas[msg.author.id]]['frases'])
+        await msg.channel.send(choice(estados[partidas[msg.author.id]]['frases']))
     #
     # Caso contrário, avisar que a mensagem não avança no jogo
     else:
         #
         # Se o jogador está no primeiro estado...
-        if estados_dos_jogadores[msg.author.id] == 0:
+        if partidas[msg.author.id] == 0:
             #
             # ...ajudar com uma dica:
-            await msg.channel.send(choice(estados[estados_dos_jogadores[msg.author.id]]['frases']))
+            await msg.channel.send(choice(estados[partidas[msg.author.id]]['frases']))
         else:
             #
             # Nos estados seguintes, a resposta padrão de HAL:
