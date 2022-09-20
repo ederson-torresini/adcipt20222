@@ -32,7 +32,9 @@ estados = {
     },
     3: {
         'frases': ['Fim do jogo!', 'Parabéns!'],
-        'proximos_estados': {}
+        'proximos_estados': {
+            'reiniciar': 1
+        }
     }
 }
 
