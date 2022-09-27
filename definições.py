@@ -4,9 +4,9 @@ estados = {
     0: {
         'frases': ['Digite "iniciar" para começar o jogo.'],
         'proximos_estados': {
-            '[iI]nicia(r)*': 1
+            '[iI]niciar?': 1
         },
-        'tempo_limite': 0
+        'tempo_limite': -1
     },
     1: {
         'frases': ['Olá!', 'Tudo bem, como vai?'],
