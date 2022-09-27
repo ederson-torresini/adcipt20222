@@ -1,5 +1,3 @@
-# Dicionário com as definições da máquina de estados do jogo.
-# As opções dos jogadores são definidas como expressões regulares.
 estados = {
     0: {
         'frases': ['Digite "iniciar" para começar o jogo.'],
@@ -32,5 +30,4 @@ estados = {
     }
 }
 
-# Dicionário com os estados correntes de cada jogador.
 partidas = {}
