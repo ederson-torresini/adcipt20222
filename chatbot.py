@@ -9,7 +9,7 @@ from discord.ext import commands
 from random import choice
 #
 # Expressões regulares
-from re import match
+from re import fullmatch
 #
 # Variáveis de ambiente
 from os import getenv
@@ -57,7 +57,7 @@ async def on_message(msg):
     for key, value in estado_do_jogador['proximos_estados'].items():
         #
         # Comparar a frase do jogador com a chave usando expressões regulares:
-        if match(key, msg.content):
+        if fullmatch(key, msg.content):
             #
             # Atualizar o estado do jogador,
             # e para isso é usado o conteúdo da mensagem como valor do dicionário:
