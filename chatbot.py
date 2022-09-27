@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 from random import choice
+from re import search
 load_dotenv()
 
 intents = discord.Intents.default()
@@ -10,30 +11,31 @@ intents.message_content = True
 bot = commands.Bot(intents=intents, command_prefix='')
 
 # Dicionário com as definições da máquina de estados do jogo.
+# As opções dos jogadores são definidas como expressões regulares.
 estados = {
     0: {
         'frases': ['Digite "iniciar" para começar o jogo.'],
         'proximos_estados': {
-            'iniciar': 1
+            '[iI]nicia(r)*': 1
         }
     },
     1: {
         'frases': ['Olá!', 'Tudo bem, como vai?'],
         'proximos_estados': {
-            'sim': 2,
-            'não': 3
+            '[sS](i)+m': 2,
+            '[nN][aã]+o': 3
         }
     },
     2: {
         'frases': ['Era uma vez...', 'E lá de volta outra vez...'],
         'proximos_estados': {
-            'não': 3
+            '[nN][aã]+o': 3
         }
     },
     3: {
         'frases': ['Fim do jogo!', 'Parabéns!'],
         'proximos_estados': {
-            'reiniciar': 1
+            '[rR]einicia(r)*': 1
         }
     }
 }
@@ -49,7 +51,8 @@ async def on_ready():
 
 @bot.event
 async def on_message(msg):
-    # Armazenar o autor da mensagem
+    #
+    # Armazenar o autor da mensagem.
     autor = msg.author.id
 
     # Verificar se a mensagem não tem o próprio bot como autor.
@@ -70,31 +73,37 @@ async def on_message(msg):
     #
     # 3) Filtrar desse estado apenas a lista de próximos estados:
     #    estados_do_jogador['proximos_estados']
-    # 4) Filtrar dessa lista as chaves (frases) quem levam a próximos estados:
-    #    estado_de_jogador['proximos_estados'].keys()
-    # 5) Verificar se a frase do usuário está na lista de chaves (frases) do estado:
-    if msg.content in estado_do_jogador['proximos_estados'].keys():
+    # 4) Obter a lista completa dos próximos estados:
+    #    estado_de_jogador['proximos_estados'].items()
+    # 5) Separar chave e valor da lista completa:
+    for key, value in estado_do_jogador['proximos_estados'].items():
         #
-        # Atualizar o estado do jogador,
-        # e para isso é usado o conteúdo da mensagem como chave do dicionário:
-        partidas[autor] = estado_do_jogador['proximos_estados'][msg.content]
-        #
-        # A definição completa do estado do jogador,
-        # por consequência, também é atualizada
-        estado_do_jogador = estados[partidas[autor]]
-        #
-        # Enviar para o jogador a mensagem do estado (já atualizado)
-        #
-        # Em ordem de operação:
-        # 0) Filtrar do estado do jogador apenas a lista de frases:
-        #    estado_do_jogador['frases']
-        # 1) Sortear uma frase dessa lista:
-        #   choice(estado_do_jogador['frases'])
-        await msg.channel.send(choice(estado_do_jogador['frases']))
+        # Comparar a frase do jogador com a chave usando expressões regulares:
+        if search(key, msg.content):
+            #
+            # Atualizar o estado do jogador,
+            # e para isso é usado o conteúdo da mensagem como valor do dicionário:
+            partidas[autor] = value
+            #
+            # A definição completa do estado do jogador,
+            # por consequência, também é atualizada
+            estado_do_jogador = estados[partidas[autor]]
+            #
+            # Enviar para o jogador a mensagem do estado (já atualizado)
+            #
+            # Em ordem de operação:
+            # 0) Filtrar do estado do jogador apenas a lista de frases:
+            #    estado_do_jogador['frases']
+            # 1) Sortear uma frase dessa lista:
+            #   choice(estado_do_jogador['frases'])
+            await msg.channel.send(choice(estado_do_jogador['frases']))
+            #
+            # Retonar a função, já que a resposta ao jogador já foi dada.
+            return
     #
     # Caso contrário, avisar que a mensagem não avança no jogo.
     # Se o jogador ainda estiver no estado, ajudar com uma dica:
-    elif partidas[autor] == 0:
+    if partidas[autor] == 0:
         await msg.channel.send(choice(estado_do_jogador['frases']))
     else:
         #
