@@ -20,9 +20,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(msg):
-
     autor = msg.author.id
-
     if autor == bot.application_id:
         return
 
@@ -33,25 +31,17 @@ async def on_message(msg):
     ultima_mensagem = partidas[autor]['ultima_mensagem']
 
     for key, value in estado_do_jogador['proximos_estados'].items():
-
         if fullmatch(key, msg.content):
 
+            delta = msg.created_at - ultima_mensagem
+            if delta.seconds > estado_do_jogador['tempo_limite']:
+                await msg.channel.send('Tempo limite estourado. Reiniciando o jogo...')
+                partidas[autor] = {'estado': 1, 'ultima_mensagem': msg.created_at}
+            else:
+                partidas[autor]['estado'] = value
+                partidas[autor]['ultima_mensagem'] = msg.created_at
 
-            if estado_do_jogador['tempo_limite'] > 0:
-
-                delta = msg.created_at - ultima_mensagem
-                if delta.seconds > estado_do_jogador['tempo_limite']:
-
-                    partidas[autor] = {
-                        'estado': 1,
-                        'ultima_mensagem': msg.created_at
-                    }
-                    await msg.channel.send('Tempo limite estourado (' + str(estado_do_jogador['tempo_limite']) + 's). Reiniciando o jogo...')
-                    return
-
-            partidas[autor]['estado'] = value
-            partidas[autor]['ultima_mensagem'] = msg.created_at
-            estado_do_jogador = estados[partidas[autor]['estado']]
+            estado_do_jogador = estados[partidas[autor]['estado']]                #
 
             await msg.channel.send(choice(estado_do_jogador['frases']))
             return
