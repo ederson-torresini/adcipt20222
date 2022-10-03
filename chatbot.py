@@ -1,22 +1,12 @@
-# Dicionários do jogo
-from definições import estados, partidas
-#
-# Discord
+from definições import frases, estados, partidas
 import discord
 from discord.ext import commands
-#
-# Aleatoriedade
 from random import choice
-#
-# Expressões regulares
 from re import fullmatch
-#
-# Variáveis de ambiente
 from os import getenv
 from dotenv import load_dotenv
 load_dotenv()
 
-# Definir o perfil do bot: ler mensagens.
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(intents=intents, command_prefix='')
@@ -29,64 +19,35 @@ async def on_ready():
 
 @bot.event
 async def on_message(msg):
-    #
-    # Armazenar o autor da mensagem.
-    autor = msg.author.id
-
-    # Verificar se a mensagem não tem o próprio bot como autor.
-    if autor == bot.application_id:
+    # Testar se o autor é um bot (incluindo o próprio)
+    if msg.author.bot:
         return
-    #
-    # Verificar se o jogador ainda não começou a partida,
-    # o que significa que precisa colocá-lo no estado zero (0).
+
+    autor = msg.author.id
     if autor not in partidas:
-        partidas[autor] = 0
-    #
-    # Em ordem de operação:
-    # 0) Obter o estado atual do jogador:
-    #    partidas[autor]
-    # 1) Obter a definição completa desse estado:
-    #    estados[partidas[autor]]
-    estado_do_jogador = estados[partidas[autor]]
-    #
-    # 3) Filtrar desse estado apenas a lista de próximos estados:
-    #    estados_do_jogador['proximos_estados']
-    # 4) Obter a lista completa dos próximos estados:
-    #    estado_de_jogador['proximos_estados'].items()
-    # 5) Separar chave e valor da lista completa:
+        # Jogador começa no estado 0 com duas chaves
+        partidas[autor] = {'estado': 0, 'inventario': {'chave_prateada', 'chave_dourada'}}
+
+    estado_do_jogador = estados[partidas[autor]['estado']]
+    inventario_do_jogador = partidas[autor]['inventario']
+
     for key, value in estado_do_jogador['proximos_estados'].items():
-        #
-        # Comparar a frase do jogador com a chave usando expressões regulares:
         if fullmatch(key, msg.content):
-            #
-            # Atualizar o estado do jogador,
-            # e para isso é usado o conteúdo da mensagem como valor do dicionário:
-            partidas[autor] = value
-            #
-            # A definição completa do estado do jogador,
-            # por consequência, também é atualizada
-            estado_do_jogador = estados[partidas[autor]]
-            #
-            # Enviar para o jogador a mensagem do estado (já atualizado)
-            #
-            # Em ordem de operação:
-            # 0) Filtrar do estado do jogador apenas a lista de frases:
-            #    estado_do_jogador['frases']
-            # 1) Sortear uma frase dessa lista:
-            #   choice(estado_do_jogador['frases'])
-            await msg.channel.send(choice(estado_do_jogador['frases']))
-            #
-            # Retonar a função, já que a resposta ao jogador já foi dada.
+            if inventario_do_jogador.issuperset(estados[value]['inventario']):
+                # Atualiza o estado do jogador
+                partidas[autor]['estado'] = value
+                # Remove os itens de inventário requisitados
+                partidas[autor]['inventario'] = inventario_do_jogador.difference(
+                    estados[value]['inventario'])
+                await msg.channel.send(choice(estados[value]['frases']))
+            else:
+                await msg.channel.send(frases['inventario_insuficiente'])
             return
-    #
-    # Caso contrário, avisar que a mensagem não avança no jogo.
-    # Se o jogador ainda estiver no estado, ajudar com uma dica:
-    if partidas[autor] == 0:
+
+    if partidas[autor]['estado'] == 0:
         await msg.channel.send(choice(estado_do_jogador['frases']))
     else:
-        #
-        #  Nos estados seguintes, a resposta padrão de HAL:
-        await msg.channel.send('I\'m sorry Dave, I\'m afraid I can\'t do that.')
+        await msg.channel.send(frases['erro'])
 
 
 bot.run(getenv('DISCORD_TOKEN'))
