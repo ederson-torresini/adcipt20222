@@ -11,9 +11,6 @@ from random import choice
 # Expressões regulares
 from re import fullmatch
 #
-# Diferença de data e hora
-from datetime import datetime, timedelta
-#
 # Variáveis de ambiente
 from os import getenv
 from dotenv import load_dotenv
@@ -43,15 +40,14 @@ async def on_message(msg):
     # Verificar se o jogador ainda não começou a partida,
     # o que significa que precisa colocá-lo no estado zero (0).
     if autor not in partidas:
-        partidas[autor] = {'estado': 0, 'ultima_mensagem': msg.created_at}
+        partidas[autor] = 0
     #
     # Em ordem de operação:
     # 0) Obter o estado atual do jogador:
     #    partidas[autor]
     # 1) Obter a definição completa desse estado:
     #    estados[partidas[autor]]
-    estado_do_jogador = estados[partidas[autor]['estado']]
-    ultima_mensagem = partidas[autor]['ultima_mensagem']
+    estado_do_jogador = estados[partidas[autor]]
     #
     # 3) Filtrar desse estado apenas a lista de próximos estados:
     #    estados_do_jogador['proximos_estados']
@@ -63,21 +59,14 @@ async def on_message(msg):
         # Comparar a frase do jogador com a chave usando expressões regulares:
         if fullmatch(key, msg.content):
             #
-            # Verificar se a mensagem estourou o limite de tempo da resposta:
-            delta = msg.created_at - ultima_mensagem
-            if delta.seconds > estado_do_jogador['tempo_limite']:
-                await msg.channel.send('Tempo limite estourado. Reiniciando o jogo...')
-                partidas[autor] = {'estado': 1, 'ultima_mensagem': msg.created_at}
-            else:
-                #
-                # Atualizar o estado do jogador,
-                # e para isso é usado o conteúdo da mensagem como valor do dicionário:
-                partidas[autor]['estado'] = value
-                partidas[autor]['ultima_mensagem'] = msg.created_at
+            # Atualizar o estado do jogador,
+            # e para isso é usado o conteúdo da mensagem como valor do dicionário:
+            partidas[autor] = value
             #
             # A definição completa do estado do jogador,
             # por consequência, também é atualizada
-            estado_do_jogador = estados[partidas[autor]['estado']]                #
+            estado_do_jogador = estados[partidas[autor]]
+            #
             # Enviar para o jogador a mensagem do estado (já atualizado)
             #
             # Em ordem de operação:
@@ -92,7 +81,7 @@ async def on_message(msg):
     #
     # Caso contrário, avisar que a mensagem não avança no jogo.
     # Se o jogador ainda estiver no estado, ajudar com uma dica:
-    if partidas[autor]['estado'] == 0:
+    if partidas[autor] == 0:
         await msg.channel.send(choice(estado_do_jogador['frases']))
     else:
         #
