@@ -26,7 +26,13 @@ async def on_message(msg):
     autor = msg.author.id
     if autor not in partidas:
         # Jogador começa no estado 0 com duas chaves
-        partidas[autor] = {'estado': 0, 'inventario': {'chave_prateada', 'chave_dourada'}}
+        partidas[autor] = {
+            'estado': 0,
+            'inventario': {
+                'chave_prateada',
+                'chave_dourada'
+            }
+        }
 
     estado_do_jogador = estados[partidas[autor]['estado']]
     inventario_do_jogador = partidas[autor]['inventario']
