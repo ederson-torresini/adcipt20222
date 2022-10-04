@@ -11,7 +11,7 @@ estados = {
         }
     },
     1: {
-        'frases': ['Olá!', 'Tudo bem, como vai?'],
+        'frases': ['Olá|!', 'Tudo bem,|como vai?'],
         'proximos_estados': {
             '[sS](i)+m': 2,
             '[nN][aã]+o': 3
@@ -19,7 +19,7 @@ estados = {
         'inventario': {'chave_prateada'}
     },
     2: {
-        'frases': ['Era uma vez...', 'E lá de volta outra vez...'],
+        'frases': ['Era uma vez...', 'E lá de volta|outra vez...'],
         'proximos_estados': {
             '[nN][aã]+o': 3
         },
