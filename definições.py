@@ -7,7 +7,7 @@ estados = {
     0: {
         'frases': ['Digite "iniciar" para começar o jogo.'],
         'proximos_estados': {
-            '[iI]nicia(r)*': 1
+            '[iI]niciar?': 1
         }
     },
     1: {
@@ -28,7 +28,7 @@ estados = {
     3: {
         'frases': ['Fim do jogo!', 'Parabéns!'],
         'proximos_estados': {
-            '[rR]einicia(r)*': 1
+            '[rR]einiciar?': 1
         },
         'inventario': {'chave_dourada'}
     }
