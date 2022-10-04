@@ -45,7 +45,10 @@ async def on_message(msg):
                 # Remove os itens de inventário requisitados
                 partidas[autor]['inventario'] = inventario_do_jogador.difference(
                     estados[value]['inventario'])
-                await msg.channel.send(choice(estados[value]['frases']))
+                frase = choice(estados[value]['frases'])
+                mensagens = frase.split('|')
+                for mensagem in mensagens:
+                    await msg.channel.send(mensagem)
             else:
                 await msg.channel.send(frases['inventario_insuficiente'])
             return
