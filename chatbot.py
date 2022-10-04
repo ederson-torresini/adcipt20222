@@ -23,7 +23,7 @@ async def on_message(msg):
     # Testar se o autor é um bot (incluindo o próprio)
     if msg.author.bot:
         return
-
+    #
     autor = msg.author.id
     if autor not in partidas:
         # Jogador começa no estado 0 com duas chaves
@@ -34,10 +34,10 @@ async def on_message(msg):
                 'chave_dourada'
             }
         }
-
+    #
     estado_do_jogador = estados[partidas[autor]['estado']]
     inventario_do_jogador = partidas[autor]['inventario']
-
+    #
     for key, value in estado_do_jogador['proximos_estados'].items():
         if fullmatch(key, msg.content):
             if inventario_do_jogador.issuperset(estados[value]['inventario']):
@@ -46,19 +46,19 @@ async def on_message(msg):
                 # Remove os itens de inventário requisitados
                 partidas[autor]['inventario'] = inventario_do_jogador.difference(
                     estados[value]['inventario'])
-
+                #
                 # Se houver uma imagem referente ao estado,
                 # envia essa primeiro
                 imagem = str(value) + '.png'
                 if exists(imagem):
                     await msg.channel.send(file=discord.File(imagem))
-
+                #
                 # Cria uma lista de frases usando o delimitador '|' e envia uma a uma
                 [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
             else:
                 await msg.channel.send(frases['inventario_insuficiente'])
             return
-
+    #
     if partidas[autor]['estado'] == 0:
         await msg.channel.send(choice(estado_do_jogador['frases']))
     else:
