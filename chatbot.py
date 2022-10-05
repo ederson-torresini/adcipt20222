@@ -19,12 +19,15 @@ async def on_ready():
 
 @bot.event
 async def on_message(msg):
+    #
     # Testar se o autor é um bot (incluindo o próprio)
     if msg.author.bot:
         return
-
+    #
+    # Garantir que o autor tem dados de partida
     autor = msg.author.id
     if autor not in partidas:
+        #
         # Jogador começa no estado 0 com duas chaves
         partidas[autor] = {
             'estado': 0,
@@ -33,15 +36,18 @@ async def on_message(msg):
                 'chave_dourada'
             }
         }
-
+    #
+    # Criar variáveis locais para melhorar legibilidade do código
     estado_do_jogador = estados[partidas[autor]['estado']]
     inventario_do_jogador = partidas[autor]['inventario']
-
+    #
     for key, value in estado_do_jogador['proximos_estados'].items():
         if fullmatch(key, msg.content):
             if inventario_do_jogador.issuperset(estados[value]['inventario']):
+                #
                 # Atualiza o estado do jogador
                 partidas[autor]['estado'] = value
+                #
                 # Remove os itens de inventário requisitados
                 partidas[autor]['inventario'] = inventario_do_jogador.difference(
                     estados[value]['inventario'])
@@ -49,7 +55,8 @@ async def on_message(msg):
             else:
                 await msg.channel.send(frases['inventario_insuficiente'])
             return
-
+    #
+    # Sempre responder ao usuário (dica ou não)
     if partidas[autor]['estado'] == 0:
         await msg.channel.send(choice(estado_do_jogador['frases']))
     else:
