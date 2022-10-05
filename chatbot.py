@@ -42,8 +42,11 @@ async def on_message(msg):
     estado_do_jogador = estados[partidas[autor]['estado']]
     inventario_do_jogador = partidas[autor]['inventario']
     #
+    # Varrer os possíveis próximos estados para validar com a mensagem do usuário
     for key, value in estado_do_jogador['proximos_estados'].items():
         if fullmatch(key, msg.content):
+            #
+            # Verificar se o jogador possui inventário mínimo para avançar
             if inventario_do_jogador.issuperset(estados[value]['inventario']):
                 #
                 # Atualiza o estado do jogador
@@ -62,6 +65,8 @@ async def on_message(msg):
                 # Cria uma lista de frases usando o delimitador '|' e envia uma a uma
                 [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
             else:
+                #
+                # Retornar mensagem (e manter jogador no atual estado)
                 await msg.channel.send(frases['inventario_insuficiente'])
             return
     #
