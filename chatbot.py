@@ -4,6 +4,7 @@ from discord.ext import commands
 from random import choice
 from re import fullmatch
 from os import getenv
+from os.path import exists
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -51,7 +52,15 @@ async def on_message(msg):
                 # Remove os itens de inventário requisitados
                 partidas[autor]['inventario'] = inventario_do_jogador.difference(
                     estados[value]['inventario'])
-                await msg.channel.send(choice(estados[value]['frases']))
+                #
+                # Se houver uma imagem referente ao estado,
+                # envia essa primeiro
+                imagem = str(value) + '.png'
+                if exists(imagem):
+                    await msg.channel.send(file=discord.File(imagem))
+                #
+                # Cria uma lista de frases usando o delimitador '|' e envia uma a uma
+                [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
             else:
                 await msg.channel.send(frases['inventario_insuficiente'])
             return
