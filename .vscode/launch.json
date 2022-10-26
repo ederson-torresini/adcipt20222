@@ -1,13 +1,13 @@
 {
   "configurations": [
-    {
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "name": "Python: chatbot",
-      "program": "chatbot.py",
-      "request": "launch",
-      "type": "python"
-    }
-  ],
-  "version": "0.2.0"
+  {
+    "name": "Chatbot",
+    "program": "${workspaceFolder}/chatbot.js",
+    "request": "launch",
+    "skipFiles": [
+      "<node_internals>/**"
+    ],
+    "type": "node"
+  }
+  ]
 }

@@ -1,0 +1,23 @@
+{
+  "name": "adcipt20222",
+  "version": "0.1.0",
+  "description": "Teste de chatbot com Discord.js",
+  "main": "chatbot.js",
+  "scripts": {
+    "start": "node chatbot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boidacarapreta/adcipt20222.git"
+  },
+  "author": "Ederson Torresini <etorresini@ifsc.edu.br>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boidacarapreta/adcipt20222/issues"
+  },
+  "homepage": "https://github.com/boidacarapreta/adcipt20222#readme",
+  "dependencies": {
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3"
+  }
+}

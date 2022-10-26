@@ -1,4 +1,4 @@
 tasks:
-  - init: pip install -r requirements.txt
+  - init: npm install
   - name: gerar chave arquivo de chave privada a partir de variável de ambiente
     command: echo ${SSH_PRIVATE_KEY_AWS}|tr '|' '\n' > gitpod.key && chmod 0400 gitpod.key  
