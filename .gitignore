@@ -1,5 +1,6 @@
 gitpod.key
 config.json
+node_modules/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
