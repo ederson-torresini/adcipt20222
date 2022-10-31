@@ -1,3 +1,5 @@
+image:
+  file: .gitpod.Dockerfile
 tasks:
   - init: pip install -r requirements.txt
   - name: gerar chave arquivo de chave privada a partir de variável de ambiente

@@ -42,7 +42,9 @@ async def on_message(msg):
     # Testar se o bot (msg.guild.me)
     # já está conectado no canal de voz do jogador (in msg.author.voice.channel.members),
     # caso contrário conectá-lo
-    if msg.guild.me not in msg.author.voice.channel.members:
+    if msg.guild.me in msg.author.voice.channel.members:
+        canal_de_voz = msg._state.voice_clients[0]
+    else:
         canal_de_voz = await msg.author.voice.channel.connect()
     #
     # Garantir que o autor tem dados de partida
@@ -86,7 +88,7 @@ async def on_message(msg):
                 som = str(value) + '.opus'
                 if exists(som):
                     # canal_de_voz.play(AudioSource)
-                    pass
+                    canal_de_voz.play(discord.FFmpegPCMAudio('1.mp3'), after=lambda e: print('done', e))
                 #
                 # Cria uma lista de frases usando o delimitador '|' e envia uma a uma
                 [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
