@@ -10,7 +10,8 @@ load_dotenv()
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(intents=intents, command_prefix='')
+prefix = '-'
+bot = commands.Bot(intents=intents, command_prefix=prefix)
 
 
 @bot.event
@@ -26,6 +27,12 @@ async def on_message(msg):
     if msg.author.bot:
         return
     autor = msg.author.id
+    #
+    # Filtrar comando por prefixo
+    if msg.content.strip()[0] == prefix:
+        mensagem = msg.content.strip()[1:]
+    else:
+        return
     #
     # Testar se o canal é pvt (msg.channel.type.name == 'private')
     # e, se for, avisar o jogador
@@ -65,7 +72,7 @@ async def on_message(msg):
     #
     # Varrer os possíveis próximos estados para validar com a mensagem do usuário
     for key, value in estado_do_jogador['proximos_estados'].items():
-        if fullmatch(key, msg.content):
+        if fullmatch(key, mensagem):
             #
             # Verificar se o jogador possui inventário mínimo para avançar
             if inventario_do_jogador.issuperset(estados[value]['inventario']):
