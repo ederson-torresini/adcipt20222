@@ -41,12 +41,6 @@ async def on_message(msg):
         await msg.channel.send(frases['canal_privado'])
         return
     #
-    # Testar se o jogador está em canal de voz,
-    # caso contrário convidá-lo a entrar em um
-    if not msg.author.voice:
-        await msg.channel.send(frases['sem_canal_de_voz'])
-        return
-    #
     # Garantir que o autor tem dados de partida
     if autor not in partidas:
         #
@@ -55,6 +49,16 @@ async def on_message(msg):
             'estado': 0,
             'inventario': set()
         }
+    #
+    # Testar se o jogador está em canal de voz,
+    # caso contrário convidá-lo a entrar em um
+    if msg.author.voice:
+        if msg.guild.me not in msg.author.voice.channel.members:
+            partidas[autor]['canal_de_voz'] = await msg.author.voice.channel.connect()
+        canal_de_voz = partidas[autor]['canal_de_voz']
+    else:
+        await msg.channel.send(frases['sem_canal_de_voz'])
+        return
     #
     # Criar variáveis locais para melhorar legibilidade do código
     estado_do_jogador = estados[partidas[autor]['estado']]
@@ -76,19 +80,15 @@ async def on_message(msg):
                 #
                 # Se houver um som referente ao estado,
                 # toca no canal de voz do jogador
-                som = str(value) + '.opus'
+                som = str(value) + '.mp3'
                 if exists(som):
                     #
                     # Conectar no canal de áudio e emitir o som
-                    canal_de_voz = await msg.author.voice.channel.connect()
                     canal_de_voz.play(discord.FFmpegPCMAudio(som))
                     #
                     # Aguardar de segundo em segundo até tocar todo o som...
                     while canal_de_voz.is_playing():
                         sleep(1)
-                    #
-                    # Desconectar do canal de voz
-                    await canal_de_voz.disconnect()
                 #
                 # Se houver uma imagem referente ao estado, enviar
                 imagem = str(value) + '.png'
