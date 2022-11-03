@@ -18,7 +18,7 @@ estados = {
             '[sS](i)+m': 2,
             '[nN][aã]+o': 3
         },
-        'inventario': {'chave_prateada'}
+        'inventario': {}
     },
     2: {
         'frases': ['Era uma vez...', 'E lá de volta|outra vez...'],
@@ -32,7 +32,7 @@ estados = {
         'proximos_estados': {
             '[rR]einiciar?': 1
         },
-        'inventario': {'chave_dourada'}
+        'inventario': {}
     }
 }
 

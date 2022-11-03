@@ -46,24 +46,13 @@ async def on_message(msg):
         await msg.channel.send(frases['sem_canal_de_voz'])
         return
     #
-    # Testar se o bot (msg.guild.me)
-    # já está conectado no canal de voz do jogador (in msg.author.voice.channel.members),
-    # caso contrário conectá-lo
-    if msg.guild.me in msg.author.voice.channel.members:
-        canal_de_voz = msg._state.voice_clients[0]
-    else:
-        canal_de_voz = await msg.author.voice.channel.connect()
-    #
     # Garantir que o autor tem dados de partida
     if autor not in partidas:
         #
         # Jogador começa no estado 0 com duas chaves
         partidas[autor] = {
             'estado': 0,
-            'inventario': {
-                'chave_prateada',
-                'chave_dourada'
-            }
+            'inventario': set()
         }
     #
     # Criar variáveis locais para melhorar legibilidade do código
@@ -84,20 +73,23 @@ async def on_message(msg):
                 partidas[autor]['inventario'] = inventario_do_jogador.difference(
                     estados[value]['inventario'])
                 #
-                # Se houver uma imagem referente ao estado,
-                # envia essa primeiro
-                imagem = str(value) + '.png'
-                if exists(imagem):
-                    await msg.channel.send(file=discord.File(imagem))
-                #
                 # Se houver um som referente ao estado,
                 # toca no canal de voz do jogador
                 som = str(value) + '.opus'
                 if exists(som):
-                    # canal_de_voz.play(AudioSource)
-                    canal_de_voz.play(discord.FFmpegPCMAudio('1.mp3'), after=lambda e: print('done', e))
+                    #
+                    # Conectar no canal de áudio para emitir o som
+                    canal_de_voz = await msg.author.voice.channel.connect()
+                    canal_de_voz.play(discord.FFmpegPCMAudio(
+                        som), after=lambda e: print('done', e))
+                    canal_de_voz.disconnect()
                 #
-                # Cria uma lista de frases usando o delimitador '|' e envia uma a uma
+                # Se houver uma imagem referente ao estado, enviar
+                imagem = str(value) + '.png'
+                if exists(imagem):
+                    await msg.channel.send(file=discord.File(imagem))
+                #
+                # Criar uma lista de frases usando o delimitador '|' e enviar uma a uma
                 [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
             else:
                 #
