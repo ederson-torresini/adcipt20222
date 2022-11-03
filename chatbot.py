@@ -5,6 +5,7 @@ from random import choice
 from re import fullmatch
 from os import getenv
 from os.path import exists
+from time import sleep
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -78,11 +79,16 @@ async def on_message(msg):
                 som = str(value) + '.opus'
                 if exists(som):
                     #
-                    # Conectar no canal de áudio para emitir o som
+                    # Conectar no canal de áudio e emitir o som
                     canal_de_voz = await msg.author.voice.channel.connect()
-                    canal_de_voz.play(discord.FFmpegPCMAudio(
-                        som), after=lambda e: print('done', e))
-                    canal_de_voz.disconnect()
+                    canal_de_voz.play(discord.FFmpegPCMAudio(som))
+                    #
+                    # Aguardar de segundo em segundo até tocar todo o som...
+                    while canal_de_voz.is_playing():
+                        sleep(1)
+                    #
+                    # Desconectar do canal de voz
+                    await canal_de_voz.disconnect()
                 #
                 # Se houver uma imagem referente ao estado, enviar
                 imagem = str(value) + '.png'
@@ -102,6 +108,5 @@ async def on_message(msg):
         await msg.channel.send(choice(estado_do_jogador['frases']))
     else:
         await msg.channel.send(frases['erro'])
-
 
 bot.run(getenv('DISCORD_TOKEN'))
