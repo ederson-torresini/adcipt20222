@@ -85,10 +85,6 @@ async def on_message(msg):
                     #
                     # Conectar no canal de áudio e emitir o som
                     canal_de_voz.play(discord.FFmpegPCMAudio(som))
-                    #
-                    # Aguardar de segundo em segundo até tocar todo o som...
-                    while canal_de_voz.is_playing():
-                        sleep(1)
                 #
                 # Se houver uma imagem referente ao estado, enviar
                 imagem = str(value) + '.png'
