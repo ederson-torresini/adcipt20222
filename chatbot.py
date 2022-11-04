@@ -5,7 +5,6 @@ from random import choice
 from re import fullmatch
 from os import getenv
 from os.path import exists
-from time import sleep
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -80,17 +79,17 @@ async def on_message(msg):
                 #
                 # Se houver um som referente ao estado,
                 # toca no canal de voz do jogador
-                som = str(value) + '.mp3'
-                if exists(som):
+                arquivo_de_som = str(value) + '.mp3'
+                if exists(arquivo_de_som):
                     #
                     # Conectar no canal de áudio e emitir o som
-                    source = await discord.FFmpegOpusAudio.from_probe(som)
-                    canal_de_voz.play(source)
+                    som_opus = await discord.FFmpegOpusAudio.from_probe(arquivo_de_som)
+                    canal_de_voz.play(som_opus)
                 #
                 # Se houver uma imagem referente ao estado, enviar
-                imagem = str(value) + '.png'
-                if exists(imagem):
-                    await msg.channel.send(file=discord.File(imagem))
+                arquivo_de_imagem = str(value) + '.png'
+                if exists(arquivo_de_imagem):
+                    await msg.channel.send(file=discord.File(arquivo_de_imagem))
                 #
                 # Criar uma lista de frases usando o delimitador '|' e enviar uma a uma
                 [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
