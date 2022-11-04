@@ -84,7 +84,8 @@ async def on_message(msg):
                 if exists(som):
                     #
                     # Conectar no canal de áudio e emitir o som
-                    canal_de_voz.play(discord.FFmpegPCMAudio(som))
+                    source = await discord.FFmpegOpusAudio.from_probe(som)
+                    canal_de_voz.play(source)
                 #
                 # Se houver uma imagem referente ao estado, enviar
                 imagem = str(value) + '.png'
