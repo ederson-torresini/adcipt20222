@@ -6,9 +6,32 @@ from re import fullmatch
 from os import getenv
 from os.path import exists
 from dotenv import load_dotenv
+import pymongo
 
+# Carregar variáveis de ambiente
 load_dotenv()
 
+# Iniciar base de dados com as definições do jogo
+usuario = getenv('MONGODB_USERNAME')
+senha = getenv('MONGODB_PASSWORD')
+cluster = getenv('MONGODB_CLUSTER')
+uri = "".join(["mongodb+srv://", usuario, ":", senha, "@",cluster, "/?retryWrites=true&w=majority"])
+mongo_client = pymongo.MongoClient(uri)
+database = mongo_client.chatbot
+#
+# Frases
+frases_db = database.frases
+frases_db.drop()
+frases_db.insert_many(frases)
+#
+# Estados do jogo
+estados_db = database.estados
+estados_db.drop()
+estados_db.insert_many(estados)
+#
+# Partidas
+
+# Iniciar bot
 intents = discord.Intents.default()
 intents.message_content = True
 prefix = '-'
@@ -48,9 +71,11 @@ async def on_message(msg):
     # e, se for, avisar o jogador e continua o jogo sem áudio
     if msg.channel.type.name == 'private':
         # Avisar ao jogador apenas quando o estado for 0
-        if(partidas[autor]['estado'] == 0):
-            await msg.channel.send(frases['canal_privado'])
-            await msg.channel.send(frases['sem_canal_de_voz'])
+        if (partidas[autor]['estado'] == 0):
+            frase = frases_db.find_one({'chave': 'canal_privado'}, {'_id': 0, 'valor': 1})
+            await msg.channel.send(frase['valor'])
+            frase = frases_db.find_one({'chave': 'sem_canal_de_voz'}, {'_id': 0, 'valor': 1})
+            await msg.channel.send(frases['valor'])
             partidas[autor]['canal_de_voz'] = None
     #
     # Testar se a mensagem foi mandada em um chat de servidor
