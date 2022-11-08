@@ -53,4 +53,4 @@ estados = [
     }
 ]
 
-partidas = {}
+partidas = []

@@ -30,6 +30,7 @@ estados_db.drop()
 estados_db.insert_many(estados)
 #
 # Partidas
+partidas_db = database.partidas
 
 # Iniciar bot
 intents = discord.Intents.default()
