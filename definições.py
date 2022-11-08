@@ -2,7 +2,7 @@ frases = [
     {
         'chave': 'inventario_insuficiente',
         'valor': 'Sem os recursos necessários para avançar.'
-     },
+    },
     {
         'chave': 'canal_privado',
         'valor': 'Não é possível reproduzir áudio em canais privados.'
