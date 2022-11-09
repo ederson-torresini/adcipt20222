@@ -1,21 +1,9 @@
-frases = [
-    {
-        'chave': 'inventario_insuficiente',
-        'valor': 'Sem os recursos necessários para avançar.'
-    },
-    {
-        'chave': 'canal_privado',
-        'valor': 'Não é possível reproduzir áudio em canais privados.'
-    },
-    {
-        'chave': 'sem_canal_de_voz',
-        'valor': 'Por favor, esteja em um canal de voz para ter a imersão completa do jogo.'
-    },
-    {
-        'chave': 'erro',
-        'valor': 'I\'m sorry Dave, I\'m afraid I can\'t do that.'
-    }
-]
+frases = {
+    'inventario_insuficiente': 'Sem os recursos necessários para avançar.',
+    'canal_privado': 'Não é possível reproduzir áudio em canais privados.',
+    'sem_canal_de_voz': 'Por favor, esteja em um canal de voz para ter a imersão completa do jogo.',
+    'erro': 'I\'m sorry Dave, I\'m afraid I can\'t do that.'
+}
 
 
 estados = [
