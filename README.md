@@ -6,7 +6,7 @@ Para acompanhamento do projeto: [kanban](https://github.com/users/boidacarapreta
 
 ## Equipes
 
-| Equipe                                                     | Projeto                                                            | Repositório                                                             | Entrega 1 | Entrega 2 | Entrega 3 | Entrega 4 | Entrega 5 | Entrega 6 | Entrega 7 | Entrega 8 |
+| Equipe                                                     | Projeto                                                            | Repositório                                                             | E1 | E2 | E3 | E4 | E5 | E6 | E7 | E8 |
 | ---------------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
 | [AK e MC](https://github.com/AK-MC)                        | [🔗](https://github.com/orgs/AK-MC/projects/1/views/1)             | [Kayla's Adventure](https://github.com/AK-MC/Kayla-s-adventure)         | 6         | 0         | 6         | 0         |           |           |           |           |
 | [aifbot](https://github.com/aifbot)                        | [🔗](https://github.com/orgs/aifbot/projects/1)                    | [discord-chabot](https://github.com/aifbot/discord-chatbot)             | 6         | 8         | 8         | 0         |           |           |           |           |
