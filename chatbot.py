@@ -74,7 +74,6 @@ async def on_message(msg):
         if partida['estado'] == 0:
             await msg.channel.send(frases['canal_privado'])
             await msg.channel.send(frases['sem_canal_de_voz'])
-            canais_de_voz[autor] = None
     #
     # Testar se a mensagem foi mandada em um chat de servidor
     # se sim, testar se o jogador está em canal de voz,
@@ -82,8 +81,7 @@ async def on_message(msg):
     if msg.channel.type.name != 'private':
         if msg.author.voice:
             if msg.guild.me not in msg.author.voice.channel.members:
-                canais_de_voz['autor'] = await msg.author.voice.channel.connect()
-            canal_de_voz = canais_de_voz['autor']
+                canais_de_voz[autor] = await msg.author.voice.channel.connect()
         else:
             await msg.channel.send(frases['sem_canal_de_voz'])
             return
