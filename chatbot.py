@@ -1,4 +1,4 @@
-from definições import frases, estados, partidas
+from definições import frases, estados, canais_de_voz
 import discord
 from discord.ext import commands
 from random import choice
@@ -12,17 +12,12 @@ import pymongo
 load_dotenv()
 
 # Iniciar base de dados com as definições do jogo
-usuario = getenv('MONGODB_USERNAME')
-senha = getenv('MONGODB_PASSWORD')
-cluster = getenv('MONGODB_CLUSTER')
-uri = "".join(["mongodb+srv://", usuario, ":", senha, "@", cluster, "/?retryWrites=true&w=majority"])
+usuario = getenv('MONGODB_USERNAME', default='')
+senha = getenv('MONGODB_PASSWORD', default='')
+cluster = getenv('MONGODB_CLUSTER', default='')
+uri = ''.join(['mongodb+srv://', usuario, ':', senha, '@', cluster, '/?retryWrites=true&w=majority'])
 mongo_client = pymongo.MongoClient(uri)
 database = mongo_client.chatbot
-#
-# Estados do jogo
-estados_db = database.estados
-estados_db.drop()
-estados_db.insert_many(estados)
 #
 # Partidas
 partidas_db = database.partidas
@@ -55,19 +50,23 @@ async def on_message(msg):
         return
     #
     # Garantir que o autor tem dados de partida
-    if autor not in partidas:
+    if partidas_db.count_documents({'jogador': autor}) == 0:
         #
         # Jogador começa no estado 0 e inventário vazio
-        partidas_db.insert_one({'jogador': autor, 'estado': 0, 'inventario': {}})
+        partidas_db.insert_one({'jogador': autor, 'estado': 0})
+    #
+    # Coletar os dados persistentes de usuário
+    partida = partidas_db.find_one({'jogador': autor})
     #
     # Testar se o canal é pvt (msg.channel.type.name == 'private')
     # e, se for, avisar o jogador e continua o jogo sem áudio
     if msg.channel.type.name == 'private':
+        #
         # Avisar ao jogador apenas quando o estado for 0
-        if (partidas[autor]['estado'] == 0):
+        if partida['estado'] == 0:
             await msg.channel.send(frases['canal_privado'])
             await msg.channel.send(frases['sem_canal_de_voz'])
-            partidas[autor]['canal_de_voz'] = None
+            canais_de_voz[autor] = None
     #
     # Testar se a mensagem foi mandada em um chat de servidor
     # se sim, testar se o jogador está em canal de voz,
@@ -75,57 +74,45 @@ async def on_message(msg):
     if msg.channel.type.name != 'private':
         if msg.author.voice:
             if msg.guild.me not in msg.author.voice.channel.members:
-                partidas[autor]['canal_de_voz'] = await msg.author.voice.channel.connect()
-            canal_de_voz = partidas[autor]['canal_de_voz']
+                canais_de_voz['autor'] = await msg.author.voice.channel.connect()
+            canal_de_voz = canais_de_voz['autor']
         else:
             await msg.channel.send(frases['sem_canal_de_voz'])
             return
     #
     # Criar variáveis locais para melhorar legibilidade do código
-    estado_do_jogador = estados[partidas[autor]['estado']]
-    inventario_do_jogador = partidas[autor]['inventario']
+    estado_do_jogador = estados[partida['estado']]
     #
     # Varrer os possíveis próximos estados para validar com a mensagem do usuário
     for key, value in estado_do_jogador['proximos_estados'].items():
         if fullmatch(key, mensagem):
             #
-            # Verificar se o jogador possui inventário mínimo para avançar
-            if inventario_do_jogador.issuperset(estados[value]['inventario']):
-                #
-                # Atualiza o estado do jogador
-                partidas[autor]['estado'] = value
-                #
-                # Remove os itens de inventário requisitados
-                partidas[autor]['inventario'] = inventario_do_jogador.difference(
-                    estados[value]['inventario'])
-                #
-                # Se houver um som referente ao estado,
-                # toca no canal de voz do jogador
-                if msg.channel.type.name != 'private':
-                    arquivo_de_som = str(value) + '.mp3'
-                    if exists(arquivo_de_som):
-                        #
-                        # Conectar no canal de áudio e emitir o som
-                        som_opus = await discord.FFmpegOpusAudio.from_probe(arquivo_de_som)
-                        canal_de_voz.play(som_opus)
-                #
-                # Se houver uma imagem referente ao estado, enviar
-                arquivo_de_imagem = str(value) + '.png'
-                if exists(arquivo_de_imagem):
-                    await msg.channel.send(file=discord.File(arquivo_de_imagem))
-                #
-                # Criar uma lista de frases usando o delimitador '|' e enviar uma a uma
-                [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
-            else:
-                #
-                # Retornar mensagem (e manter jogador no atual estado)
-                await msg.channel.send(frases['inventario_insuficiente'])
+            # Atualiza o estado do jogador
+            partida['estado'] = value
+            #
+            # Se houver um som referente ao estado,
+            # toca no canal de voz do jogador
+            if msg.channel.type.name != 'private':
+                arquivo_de_som = str(value) + '.mp3'
+                if exists(arquivo_de_som):
+                    #
+                    # Conectar no canal de áudio e emitir o som
+                    som_opus = await discord.FFmpegOpusAudio.from_probe(arquivo_de_som)
+                    canais_de_voz[autor].play(som_opus)
+            #
+            # Se houver uma imagem referente ao estado, enviar
+            arquivo_de_imagem = str(value) + '.png'
+            if exists(arquivo_de_imagem):
+                await msg.channel.send(file=discord.File(arquivo_de_imagem))
+            #
+            # Criar uma lista de frases usando o delimitador '|' e enviar uma a uma
+            [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
             return
     #
     # Sempre responder ao usuário (dica ou não)
-    if partidas[autor]['estado'] == 0:
+    if partida['estado'] == 0:
         await msg.channel.send(choice(estado_do_jogador['frases']))
     else:
         await msg.channel.send(frases['erro'])
 
-bot.run(getenv('DISCORD_TOKEN'))
+bot.run(getenv('DISCORD_TOKEN', default=''))
