@@ -49,6 +49,14 @@ async def on_message(msg):
     else:
         return
     #
+    # Comandos que antecedem os demais: reiniciar
+    if fullmatch('[rR]einiciar?', mensagem):
+        #
+        # Pesquisar e apagar o registro no banco - e informar o usuário
+        partidas_db.find_one_and_delete({'jogador': autor})
+        await msg.channel.send(frases['reiniciado'])
+        return
+    #
     # Garantir que o autor tem dados de partida
     if partidas_db.count_documents({'jogador': autor}) == 0:
         #
@@ -88,7 +96,11 @@ async def on_message(msg):
         if fullmatch(key, mensagem):
             #
             # Atualiza o estado do jogador
-            partida['estado'] = value
+            partida = partidas_db.find_one_and_update(
+                {'jogador': autor},
+                {'$set': {'estado': value}},
+                return_document=pymongo.ReturnDocument.AFTER
+            )
             #
             # Se houver um som referente ao estado,
             # toca no canal de voz do jogador
