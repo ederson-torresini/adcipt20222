@@ -57,6 +57,14 @@ async def on_message(msg):
         await msg.channel.send(frases['reiniciado'])
         return
     #
+    # e fechar todos os canais de bot
+    if fullmatch('[sS]ing it for me.?', mensagem):
+        #
+        # Fechar todos os canais de voz
+        [await canais_de_voz[i].disconnect() for i in canais_de_voz.keys()]
+        await msg.channel.send(frases['saindo'])
+        return
+    #
     # Garantir que o autor tem dados de partida
     if partidas_db.count_documents({'jogador': autor}) == 0:
         #
