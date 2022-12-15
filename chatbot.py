@@ -7,6 +7,7 @@ from os import getenv
 from os.path import exists
 from dotenv import load_dotenv
 import pymongo
+import asyncio
 
 # Carregar variáveis de ambiente
 load_dotenv()
@@ -15,7 +16,8 @@ load_dotenv()
 usuario = getenv('MONGODB_USERNAME', default='')
 senha = getenv('MONGODB_PASSWORD', default='')
 cluster = getenv('MONGODB_CLUSTER', default='')
-uri = ''.join(['mongodb+srv://', usuario, ':', senha, '@', cluster, '/?retryWrites=true&w=majority'])
+uri = ''.join(['mongodb+srv://', usuario, ':', senha, '@',
+              cluster, '/?retryWrites=true&w=majority'])
 mongo_client = pymongo.MongoClient(uri)
 database = mongo_client.chatbot
 #
@@ -27,6 +29,11 @@ intents = discord.Intents.default()
 intents.message_content = True
 prefix = '-'
 bot = commands.Bot(intents=intents, command_prefix=prefix)
+
+
+async def tocar_som(autor, som):
+    som_opus = await discord.FFmpegOpusAudio.from_probe(som)
+    canais_de_voz[autor].play(som_opus, after=lambda e: asyncio.run_coroutine_threadsafe(tocar_som(autor, som), bot.loop))
 
 
 @bot.event
@@ -115,8 +122,9 @@ async def on_message(msg):
                 if exists(arquivo_de_som):
                     #
                     # Conectar no canal de áudio e emitir o som
-                    som_opus = await discord.FFmpegOpusAudio.from_probe(arquivo_de_som)
-                    canais_de_voz[autor].play(som_opus)
+                    # som_opus = await discord.FFmpegOpusAudio.from_probe(arquivo_de_som)
+                    # canais_de_voz[autor].play(som_opus)
+                    await tocar_som(autor, arquivo_de_som)
             #
             # Se houver uma imagem referente ao estado, enviar
             arquivo_de_imagem = str(value) + '.png'
